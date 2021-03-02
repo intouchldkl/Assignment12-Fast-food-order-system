@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Assignment12_Fast_food_order_system
 {
@@ -6,6 +7,31 @@ namespace Assignment12_Fast_food_order_system
     {
         static void Main(string[] args)
         {
+            int length = 0;
+            StreamReader fileReader = new StreamReader("food.csv");
+            while ((fileReader.ReadLine()) != null)
+            {                
+                length++;
+            }
+
+            
+            fileReader = new StreamReader("food.csv");
+            string line = fileReader.ReadLine();
+            Item[] items = new Item[length-1];
+            int count = 0;
+            while ((line = fileReader.ReadLine())!= null)
+            {
+                string[] cells = line.Split(",");
+                string Code = cells[0];
+                string name = cells[1];
+                double price = Convert.ToDouble(cells[2]);
+                items[count] = new Item(Code, name, price);
+                count++;
+                
+            }
+
+
+            /*
             Item[] items = new Item[]
             {
                 new Item("D1","Coke",12),
@@ -14,6 +40,7 @@ namespace Assignment12_Fast_food_order_system
                 new Item("F2","Fries",19)
 
             };
+            */
             string code;
             string code1;
             string order = "";
@@ -56,7 +83,7 @@ namespace Assignment12_Fast_food_order_system
             }
 
             Console.WriteLine("Your bill is " + P1.CalBill(items) + "$");
-
+            
         }
         public static  void Menu(Item[] items)
         {
